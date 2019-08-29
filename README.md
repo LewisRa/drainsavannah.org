@@ -19,27 +19,36 @@ This application requires [Postgres](http://www.postgresql.org/) to be installed
 See the [wiki](https://github.com/sfbrigade/adopt-a-drain/wiki/Windows-Development-Environment) for a guide on how to install this application on Windows.
 
 ## Docker
-
+If you would rather not install RUBY and Postgres db on your local computer, you may use DOCKER to run and improve this project
 To setup a local development environment with
 [Docker](https://docs.docker.com/engine/installation/).   
 
+Basic instructions for install DOCKER and this project:
+1. Install Docker Toolbox  https://docs.docker.com/toolbox/toolbox_install_windows/
+2. Install VirtualBox 6.0.10 (solves some bugs with the version that comes with Toolbox)
+3. git clone git://github.com/opensavannah/adopt-a-drain.git
+
 ```
-# Override database settings as the docker host:
-echo "DB_HOST=db" > .env
-echo "DB_USER=postgres" >> .env
+To run project in DOCKER:
+1. Run As Adminitrator Docker QuickStart Terminal
+2. Navigate to the location of this github repository locally. For Example: cd /c/Users/rachel/Documents/GitHub/adopt-a-drain-savannah.org
+3. Run the following commands in the terminal
+    # Override database settings as the docker host:
+    echo "DB_HOST=db" > .env
+    echo "DB_USER=postgres" >> .env
 
-# Setup your docker based postgres database:
-docker-compose run --rm web bundle exec rake db:setup
+    # Setup your docker based postgres database:
+    docker-compose run --rm web bundle exec rake db:setup
 
-# Load data:
-docker-compose run --rm web bundle exec rake data:load_drains
-# OR: don't load all that data, and load the seed data:
-# docker-compose run --rm web bundle exec rake db:seed
+    # Load data:
+    docker-compose run --rm web bundle exec rake data:load_drains
+    # OR: don't load all that data, and load the seed data:
+    # docker-compose run --rm web bundle exec rake db:seed
 
-# Start the web server:
-docker-compose up
+    # Start the web server:
+    docker-compose up
 
-# Visit your website http://localhost:3000 (or the IP of your docker-machine)
+# Your project should be up and running. Instead of http://localhost:3000 or tcp://0.0.0.0:3000 as the terminal suggests, grab the IP address of the docker container and use that.  The easiest way is to look in the Kitematic app.  Open it, select the proper container (*web) and then look at the Settings->Hostname/Ports page. Use the IP address shown with port 3000 appended, i.e. 192.168.99.3:3000.  Visit your website!
 ```
 
 ## Usage
